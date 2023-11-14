@@ -8,12 +8,17 @@ export class Overworld {
     this.Img = Parametro.level[0].BackGround;
     this.canvas = canvas.Element;
     this.ctx = canvas.ctx;
-    this.Sprites = new Sprite(Parametro.heroe);
+    this.Sprites = new Sprite(Parametro.heroe, canvas.ctx, canvas.Element);
   }
-  DrawOver() {
+  Cleaner(){
+    this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+  }
+  DrawWorld(){
     let Img = new Image();
     Img.src = this.Img;
+    
     Img.onload = () => {
+      this.Cleaner();
       this.ctx.drawImage(
         Img,
         this.PosicionWorldX,
@@ -23,14 +28,13 @@ export class Overworld {
       );
     };
   }
+  DrawOver() {
+    this.DrawWorld();
+    
+    this.Sprites.draw();
+  }
   Animate(){
     const a =  () => {
-        
-        if(this.PosicionWorldX <  -2000){
-            this.PosicionWorldY += 1;
-        }
-        else this.PosicionWorldX -= 1;
-        
         this.DrawOver();
         requestAnimationFrame(a);
     }

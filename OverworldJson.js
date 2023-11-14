@@ -1,8 +1,10 @@
 export const overworldJson = {
     heroe:{
-        width:5,
-        height:5,
-        spriteImg:""
+        frameX:0,
+        frameY:0,
+        width:16,
+        height:24,
+        spriteImg:"./Assets/Sprites/Ness.png"
     },
     level:[
     {
@@ -10,6 +12,6 @@ export const overworldJson = {
         y:-800,
         width:2900,
         height:2900,
-        BackGround:"Assets/onettday.png"
+        BackGround:"./Assets/Worlds/onettday.png"
     }
 ]}
