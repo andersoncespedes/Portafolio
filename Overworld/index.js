@@ -1,11 +1,13 @@
+import { MovimientoSprite } from "../Sprites/MovimientoSprite.js";
 import { Sprite } from "../Sprites/index.js";
 export class Overworld {
   constructor(Parametro, canvas) {
-    this.PosicionWorldX = Parametro.level[0].x;
-    this.PosicionWorldY = Parametro.level[0].y;
-    this.width = Parametro.level[0].width;
-    this.height = Parametro.level[0].height;
-    this.Img = Parametro.level[0].BackGround;
+    this.param = Parametro;
+    this.PosicionWorldX = this.param.level[0].x;
+    this.PosicionWorldY = this.param.level[0].y;
+    this.width = this.param.level[0].width;
+    this.height = this.param.level[0].height;
+    this.Img = this.param.level[0].BackGround;
     this.canvas = canvas.Element;
     this.ctx = canvas.ctx;
     this.Sprites = new Sprite(Parametro.heroe, canvas.ctx, canvas.Element);
@@ -16,7 +18,6 @@ export class Overworld {
   DrawWorld(){
     let Img = new Image();
     Img.src = this.Img;
-    
     Img.onload = () => {
       this.Cleaner();
       this.ctx.drawImage(
@@ -28,14 +29,18 @@ export class Overworld {
       );
     };
   }
+  mov(){
+    let Mov = new MovimientoSprite(this.PosicionWorldY, this.canvas);
+    Mov.Caminar(this.param);
+  }
   DrawOver() {
     this.DrawWorld();
-    
-    this.Sprites.draw();
+    this.Sprites.main();
   }
   Animate(){
     const a =  () => {
         this.DrawOver();
+        this.mov();
         requestAnimationFrame(a);
     }
     requestAnimationFrame(a);
