@@ -33,14 +33,34 @@ export class Sprite {
       );
     };
   }
+  acutalizarAnimacion(param){
+    switch (param){
+      case("ArrowLeft"):
+        this.animationSelect = "movLeft";
+        break;
+      case("ArrowDown"):
+        this.animationSelect = "movDown";
+        break;
+      case("ArrowRight"):
+        this.animationSelect = "movRight"
+        break;
+      case("ArrowUp"):
+        this.animationSelect = "movUp"
+        break;
+
+    }
+  }
+  stander(param){
+    this.animationSelect = this.animationSelect.replace("mov", "stand");
+    console.log(this.frameActual);
+  }
   animation(){
-    this.frameX = 16 * this.param.animationSprite[this.animationSelect][this.frameActual][1];
-    this.frameY = 23 * this.param.animationSprite[this.animationSelect][this.frameActual][0];
+    
     if(this.WaitAnimation > 0){
       this.WaitAnimation--;
     }
     else{
-      if(this.frameActual < 1){
+      if(this.frameActual < this.param.animationSprite[this.animationSelect].length - 1){
       this.frameActual++;
       }
       else{
@@ -48,7 +68,8 @@ export class Sprite {
       }
       this.WaitAnimation = 10;
     }
-    
+    this.frameX = 16 * this.param.animationSprite[this.animationSelect][this.frameActual][1];
+    this.frameY = 23 * this.param.animationSprite[this.animationSelect][this.frameActual][0];
   }
   main(){
     this.draw();

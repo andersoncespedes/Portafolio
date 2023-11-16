@@ -42,22 +42,23 @@ export class Overworld {
     else {
       this.movActivado = false;
       this.heldDirection = "";
+      this.Sprites.stander(this.direccionActual);
     }
 
   }
   ActivacionMov() {
-    if (this.remanente <= 0 && this.movActivado == false) {
+    if (this.remanente <= 0 && this.ResetMov == true) {
       document.addEventListener("keydown", ev => {
-        this.remanente = 20;
+        this.remanente = 45;
         this.movActivado = true;
         this.direccionActual = ev.key;
         this.SetPerspectiva = ev.key;
-        return;
       })
     }
 
     document.addEventListener("keyup", ev => {
       this.ResetMov = true;
+      
     })
 
   }
@@ -95,6 +96,7 @@ export class Overworld {
     const a = () => {
       this.DrawOver();
       this.MovDesc();
+      this.Sprites.acutalizarAnimacion(this.direccionActual);
       requestAnimationFrame(a);
     }
   
