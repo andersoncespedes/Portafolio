@@ -29,11 +29,14 @@ export class Overworld {
     if (param.replace("Arrow", "") == "Up" || param.replace("Arrow", "") == "Down") this.Perspectiva = "Y";
     else this.Perspectiva = "X";
   }
+  get GetPerspectiva(){
+    return this.Perspectiva;
+  }
   MovDesc(posicionY, posicionX) {
     this.ActivacionMov();
     if (this.ResetMov == true && this.remanente > 0) {
       this.remanente--;
-      if (this.Perspectiva == "X") this.PosicionWorldX += this.Directions[this.direccionActual];
+      if (this.GetPerspectiva == "X") this.PosicionWorldX += this.Directions[this.direccionActual];
       else this.PosicionWorldY += this.Directions[this.direccionActual];
     }
     else {
@@ -43,15 +46,12 @@ export class Overworld {
 
   }
   ActivacionMov() {
-    if (this.remanente <= 0) {
+    if (this.remanente <= 0 && this.movActivado == false) {
       document.addEventListener("keydown", ev => {
-        this.remanente = 10;
+        this.remanente = 20;
         this.movActivado = true;
         this.direccionActual = ev.key;
         this.SetPerspectiva = ev.key;
-        setTimeout(() => {
-          this.ContMov = false;
-        }, 1000)
         return;
       })
     }
@@ -97,7 +97,10 @@ export class Overworld {
       this.MovDesc();
       requestAnimationFrame(a);
     }
-    requestAnimationFrame(a);
+  
+      requestAnimationFrame(a);
+    
+    
   }
   main() {
     console.log(this.Img);
