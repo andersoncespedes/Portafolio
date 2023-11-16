@@ -1,6 +1,8 @@
+
+
 export class MovimientoSprite
 {
-    constructor(param){
+    constructor(){
         this.heldDirection = "top";
         this.Directions = {
             ArrowUp:1,
@@ -8,15 +10,12 @@ export class MovimientoSprite
             ArrowRight:1,
             ArrowRight:-1
         }
+        this.remanente = 0;
+        this.movActivado = false;
+        this.direccionActual = "";
+        this.ResetMov = false;
+        this.Perspectiva = "";
     }
-    Caminar(param){
-       
-        document.addEventListener("keydown", ev => {
-            if(ev.key == "ArrowUp"){
-                 console.log(param.level[0].x);
-                param += this.Directions[ev.key];
-        }
-    })
-    }
+ 
 
 }

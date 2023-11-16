@@ -1,5 +1,6 @@
-import { MovimientoSprite } from "../Sprites/MovimientoSprite.js";
+
 import { Sprite } from "../Sprites/index.js";
+
 export class Overworld {
   constructor(Parametro, canvas) {
     this.param = Parametro;
@@ -11,11 +12,59 @@ export class Overworld {
     this.canvas = canvas.Element;
     this.ctx = canvas.ctx;
     this.Sprites = new Sprite(Parametro.heroe, canvas.ctx, canvas.Element);
+    this.heldDirection = "top";
+    this.Directions = {
+      ArrowUp: 1,
+      ArrowDown: -1,
+      ArrowRight: -1,
+      ArrowLeft: 1
+    }
+    this.remanente = 0;
+    this.movActivado = false;
+    this.direccionActual = "";
+    this.ResetMov = true;
+    this.Perspectiva = "";
   }
-  Cleaner(){
-    this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+  set SetPerspectiva(param) {
+    if (param.replace("Arrow", "") == "Up" || param.replace("Arrow", "") == "Down") this.Perspectiva = "Y";
+    else this.Perspectiva = "X";
   }
-  DrawWorld(){
+  MovDesc(posicionY, posicionX) {
+    this.ActivacionMov();
+    if (this.ResetMov == true && this.remanente > 0) {
+      this.remanente--;
+      if (this.Perspectiva == "X") this.PosicionWorldX += this.Directions[this.direccionActual];
+      else this.PosicionWorldY += this.Directions[this.direccionActual];
+    }
+    else {
+      this.movActivado = false;
+      this.heldDirection = "";
+    }
+
+  }
+  ActivacionMov() {
+    if (this.remanente <= 0) {
+      document.addEventListener("keydown", ev => {
+        this.remanente = 10;
+        this.movActivado = true;
+        this.direccionActual = ev.key;
+        this.SetPerspectiva = ev.key;
+        setTimeout(() => {
+          this.ContMov = false;
+        }, 1000)
+        return;
+      })
+    }
+
+    document.addEventListener("keyup", ev => {
+      this.ResetMov = true;
+    })
+
+  }
+  Cleaner() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+  DrawWorld() {
     let Img = new Image();
     Img.src = this.Img;
     Img.onload = () => {
@@ -23,25 +72,30 @@ export class Overworld {
       this.ctx.drawImage(
         Img,
         this.PosicionWorldX,
-        this.PosicionWorldY,
+        this.posicionY,
         this.width,
         this.height
       );
     };
   }
-  mov(){
-    let Mov = new MovimientoSprite(this.PosicionWorldY, this.canvas);
-    Mov.Caminar(this.param);
-  }
   DrawOver() {
     this.DrawWorld();
     this.Sprites.main();
   }
-  Animate(){
-    const a =  () => {
-        this.DrawOver();
-        this.mov();
-        requestAnimationFrame(a);
+  /**
+   * @param {any} param
+   */
+  set posicionY(param) {
+    this.PosicionWorldY = param;
+  }
+  get posicionY() {
+    return this.PosicionWorldY;
+  }
+  Animate() {
+    const a = () => {
+      this.DrawOver();
+      this.MovDesc();
+      requestAnimationFrame(a);
     }
     requestAnimationFrame(a);
   }
