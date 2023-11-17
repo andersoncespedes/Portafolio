@@ -10,7 +10,7 @@ export const overworldJson = {
             "standDown":[[0,0], [0,0]],
             "standUp":[[0,3]],
             "standRight":[[0,3]],
-            "standLeft":[[1,3]],
+            "standLeft":[[0,3]],
             "movUp":[[1,0], [1,1]],
             "movDown":[[0,0],[0,1]],
             "movLeft":[[0,3], [0,4]],

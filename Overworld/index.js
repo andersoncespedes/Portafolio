@@ -80,8 +80,15 @@ export class Overworld {
     };
   }
   DrawOver() {
+    let o = false;
+    if(this.remanente > 0){
+      o = false;
+    }
+    else{
+      o = true;
+    }
     this.DrawWorld();
-    this.Sprites.main();
+    this.Sprites.main(o);
   }
   /**
    * @param {any} param

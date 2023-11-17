@@ -1,5 +1,3 @@
-
-
 export class Sprite {
   constructor(param, ctx, canvas) {
     this.param = param;
@@ -14,7 +12,7 @@ export class Sprite {
     this.frameActual = 0;
     this.WaitAnimation = 10;
   }
- 
+
   draw() {
     let Img = new Image();
     Img.src = this.img;
@@ -33,45 +31,56 @@ export class Sprite {
       );
     };
   }
-  acutalizarAnimacion(param){
-    switch (param){
-      case("ArrowLeft"):
+  acutalizarAnimacion(param) {
+    switch (param) {
+      case "ArrowLeft":
         this.animationSelect = "movLeft";
         break;
-      case("ArrowDown"):
+      case "ArrowDown":
         this.animationSelect = "movDown";
         break;
-      case("ArrowRight"):
-        this.animationSelect = "movRight"
+      case "ArrowRight":
+        this.animationSelect = "movRight";
         break;
-      case("ArrowUp"):
-        this.animationSelect = "movUp"
+      case "ArrowUp":
+        this.animationSelect = "movUp";
         break;
-
     }
   }
-  stander(param){
-    this.animationSelect = this.animationSelect.replace("mov", "stand");
-    console.log(this.frameActual);
+  set setAnimationSelect(param) {
+    this.animationSelect = param;
   }
-  animation(){
-    
-    if(this.WaitAnimation > 0){
+  stander(param) {
+    if (param == true) {
+      this.setAnimationSelect = this.animationSelect.replace("mov", "stand");
+      this.frameActual = 0;
+    }
+  }
+  animation() {
+    if (this.WaitAnimation > 0) {
       this.WaitAnimation--;
-    }
-    else{
-      if(this.frameActual < this.param.animationSprite[this.animationSelect].length - 1){
-      this.frameActual++;
-      }
-      else{
+    } else {
+      if (
+        this.frameActual <
+        this.param.animationSprite[this.animationSelect].length - 1
+      ) {
+        this.frameActual++;
+      } else {
         this.frameActual = 0;
       }
       this.WaitAnimation = 10;
     }
-    this.frameX = 16 * this.param.animationSprite[this.animationSelect][this.frameActual][1];
-    this.frameY = 23 * this.param.animationSprite[this.animationSelect][this.frameActual][0];
+    this.frameX =
+      16 *
+      this.param.animationSprite[this.animationSelect][this.frameActual][1];
+    this.frameY =
+      23 *
+      this.param.animationSprite[this.animationSelect][this.frameActual][0];
   }
-  main(){
+
+  main(param) {
+    this.stander(param);
+    
     this.draw();
   }
 }
