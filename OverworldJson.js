@@ -1,13 +1,13 @@
 export const overworldJson = {
     heroe:{
         frameX:2,
-        frameY:10,
+        frameY:12,
         width:16,
-        height:24.5,
+        height:24,
         spriteImg:"./Assets/Sprites/Ness.png",
         animationSprite:
         {
-            "standDown":[[0,0], [0,0]],
+            "standDown":[[0,0]],
             "standUp":[[0,3]],
             "standRight":[[0,3]],
             "standLeft":[[0,3]],

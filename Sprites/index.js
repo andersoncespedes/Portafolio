@@ -26,8 +26,8 @@ export class Sprite {
         this.height,
         this.canvas.width / 2,
         this.canvas.height / 2,
-        20,
-        22
+        18,
+        20
       );
     };
   }
@@ -74,7 +74,7 @@ export class Sprite {
       16 *
       this.param.animationSprite[this.animationSelect][this.frameActual][1];
     this.frameY =
-      23 *
+      24.1 *
       this.param.animationSprite[this.animationSelect][this.frameActual][0];
   }
 
