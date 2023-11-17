@@ -36,7 +36,7 @@ export class Overworld {
     return this.Perspectiva;
   }
   MovDesc(posicionY, posicionX) {
-    this.ActivacionMov();
+    
     if (this.ResetMov == true && this.remanente > 0) {
       
       if (this.GetPerspectiva == "X")
@@ -112,5 +112,6 @@ export class Overworld {
   main() {
     console.log(this.Img);
     this.Animate();
+    this.ActivacionMov();
   }
 }
