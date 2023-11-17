@@ -1,4 +1,3 @@
-
 import { Sprite } from "../Sprites/index.js";
 
 export class Overworld {
@@ -17,8 +16,8 @@ export class Overworld {
       ArrowUp: 1,
       ArrowDown: -1,
       ArrowRight: -1,
-      ArrowLeft: 1
-    }
+      ArrowLeft: 1,
+    };
     this.remanente = 0;
     this.movActivado = false;
     this.direccionActual = "";
@@ -26,41 +25,43 @@ export class Overworld {
     this.Perspectiva = "";
   }
   set SetPerspectiva(param) {
-    if (param.replace("Arrow", "") == "Up" || param.replace("Arrow", "") == "Down") this.Perspectiva = "Y";
+    if (
+      param.replace("Arrow", "") == "Up" ||
+      param.replace("Arrow", "") == "Down"
+    )
+      this.Perspectiva = "Y";
     else this.Perspectiva = "X";
   }
-  get GetPerspectiva(){
+  get GetPerspectiva() {
     return this.Perspectiva;
   }
   MovDesc(posicionY, posicionX) {
     this.ActivacionMov();
     if (this.ResetMov == true && this.remanente > 0) {
-      this.remanente--;
-      if (this.GetPerspectiva == "X") this.PosicionWorldX += this.Directions[this.direccionActual];
+      
+      if (this.GetPerspectiva == "X")
+        this.PosicionWorldX += this.Directions[this.direccionActual];
       else this.PosicionWorldY += this.Directions[this.direccionActual];
-    }
-    else {
+      this.remanente--;
+    } else {
       this.movActivado = false;
       this.heldDirection = "";
       this.Sprites.stander(this.direccionActual);
     }
-
   }
   ActivacionMov() {
     if (this.remanente <= 0 && this.ResetMov == true) {
-      document.addEventListener("keydown", ev => {
-        this.remanente = 45;
+      document.addEventListener("keydown", (ev) => {
+        this.remanente = 40;
         this.movActivado = true;
         this.direccionActual = ev.key;
         this.SetPerspectiva = ev.key;
-      })
+      });
+    } else {
+      document.addEventListener("keyup", (ev) => {
+        this.ResetMov = true;
+      });
     }
-
-    document.addEventListener("keyup", ev => {
-      this.ResetMov = true;
-      
-    })
-
   }
   Cleaner() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -81,10 +82,9 @@ export class Overworld {
   }
   DrawOver() {
     let o = false;
-    if(this.remanente > 0){
+    if (this.remanente > 0) {
       o = false;
-    }
-    else{
+    } else {
       o = true;
     }
     this.DrawWorld();
@@ -105,11 +105,9 @@ export class Overworld {
       this.MovDesc();
       this.Sprites.acutalizarAnimacion(this.direccionActual);
       requestAnimationFrame(a);
-    }
-  
-      requestAnimationFrame(a);
-    
-    
+    };
+
+    requestAnimationFrame(a);
   }
   main() {
     console.log(this.Img);
