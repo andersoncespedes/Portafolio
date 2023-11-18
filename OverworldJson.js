@@ -4,17 +4,17 @@ export const overworldJson = {
         frameY:12,
         width:16,
         height:24,
-        spriteImg:"./Assets/Sprites/Ness.png",
+        spriteImg:"./Assets/Sprites/ness_sprites1.png",
         animationSprite:
         {
             "standDown":[[0,0]],
-            "standUp":[[0,3]],
-            "standRight":[[0,3]],
+            "standUp":[[0,2]],
+            "standRight":[[0,6]],
             "standLeft":[[0,3]],
-            "movUp":[[1,0], [1,1]],
+            "movUp":[[0,2], [0,7]],
             "movDown":[[0,0],[0,1]],
             "movLeft":[[0,3], [0,4]],
-            "movRight":[[1,3],[1,2]]
+            "movRight":[[0,5],[0,6]]
         }
     },
     level:[
@@ -23,6 +23,16 @@ export const overworldJson = {
         y:-800,
         width:2900,
         height:2900,
-        BackGround:"./Assets/Worlds/onettday.png"
+        BackGround:"./Assets/Worlds/onettday.png",
+        npc:
+        [
+            {
+                frameX:2,
+                frameY:12,
+                width:16,
+                height:24,
+                spriteImg:"./Assets/Sprites/ness_sprites1.png",
+            }
+        ]
     }
 ]}

@@ -13,10 +13,10 @@ export class Overworld {
     this.Sprites = new Sprite(Parametro.heroe, canvas.ctx, canvas.Element);
     this.heldDirection = "top";
     this.Directions = {
-      ArrowUp: 1,
-      ArrowDown: -1,
-      ArrowRight: -1,
-      ArrowLeft: 1,
+      ArrowUp: .7,
+      ArrowDown: -.7,
+      ArrowRight: -.7,
+      ArrowLeft: .7,
     };
     this.remanente = 0;
     this.movActivado = false;

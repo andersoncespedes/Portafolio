@@ -2,5 +2,6 @@
     "conventionalCommits.scopes": [
         "Overworld",
         "Sprite"
-    ]
+    ],
+    "liveServer.settings.port": 5501
 }
