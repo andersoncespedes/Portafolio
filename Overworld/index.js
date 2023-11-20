@@ -13,16 +13,17 @@ export class Overworld {
     this.Sprites = new Sprite(Parametro.heroe, canvas.ctx, canvas.Element);
     this.heldDirection = "top";
     this.Directions = {
-      ArrowUp: .7,
-      ArrowDown: -.7,
-      ArrowRight: -.7,
-      ArrowLeft: .7,
+      ArrowUp: 1,
+      ArrowDown: -1,
+      ArrowRight: -1,
+      ArrowLeft: 1,
     };
     this.remanente = 0;
     this.movActivado = false;
     this.direccionActual = "";
     this.ResetMov = true;
     this.Perspectiva = "";
+    this.npcs = this.param.level[0].npc;
   }
   set SetPerspectiva(param) {
     if (
@@ -39,9 +40,18 @@ export class Overworld {
     
     if (this.ResetMov == true && this.remanente > 0) {
       
-      if (this.GetPerspectiva == "X")
+      if (this.GetPerspectiva == "X"){
         this.PosicionWorldX += this.Directions[this.direccionActual];
-      else this.PosicionWorldY += this.Directions[this.direccionActual];
+        this.npcs[0].x += this.Directions[this.direccionActual];
+      }
+        
+      else 
+      {
+        this.PosicionWorldY += this.Directions[this.direccionActual];
+        this.npcs[0].y += this.Directions[this.direccionActual];
+
+      
+      };
       this.remanente--;
     } else {
       this.movActivado = false;
@@ -52,7 +62,7 @@ export class Overworld {
   ActivacionMov() {
     if (this.remanente <= 0 && this.ResetMov == true) {
       document.addEventListener("keydown", (ev) => {
-        this.remanente = 40;
+        this.remanente = 25;
         this.movActivado = true;
         this.direccionActual = ev.key;
         this.SetPerspectiva = ev.key;
@@ -99,11 +109,39 @@ export class Overworld {
   get posicionY() {
     return this.PosicionWorldY;
   }
+  drawNpc(){
+    this.npcs.forEach(element => {
+      let Img = new Image();
+      Img.src = element.spriteImg;
+      let fx = element.frameX * element.animationSprite["movDown"][element.frame][1];
+      let fy = element.frameY * element.animationSprite["movDown"][element.frame][0];
+      element.wait++;
+      if(element.wait == 20){
+        element.frame++;
+        if(element.frame > 1 ) element.frame = 0;
+        element.wait = 0;
+      }
+      Img.onload = () => {
+        this.ctx.drawImage(
+          Img,
+          fx,
+          fy,
+          element.width,
+          element.height,
+          element.x,
+          element.y,
+          18,
+          20
+        );
+      };
+    });
+  }
   Animate() {
     const a = () => {
       this.DrawOver();
       this.MovDesc();
       this.Sprites.acutalizarAnimacion(this.direccionActual);
+      this.drawNpc();
       requestAnimationFrame(a);
     };
 

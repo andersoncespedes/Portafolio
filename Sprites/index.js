@@ -30,6 +30,7 @@ export class Sprite {
         20
       );
     };
+   
   }
   acutalizarAnimacion(param) {
     switch (param) {
@@ -80,7 +81,7 @@ export class Sprite {
 
   main(param) {
     this.stander(param);
-    
+
     this.draw();
   }
 }
