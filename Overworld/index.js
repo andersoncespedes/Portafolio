@@ -24,6 +24,7 @@ export class Overworld {
     this.ResetMov = true;
     this.Perspectiva = "";
     this.npcs = this.param.level[0].npc;
+    this.MovBool = true;
   }
   set SetPerspectiva(param) {
     if (
@@ -37,7 +38,7 @@ export class Overworld {
     return this.Perspectiva;
   }
   MovDesc(posicionY, posicionX) {
-    if (this.ResetMov == true && this.remanente > 0) {
+    if (this.ResetMov == true && this.remanente > 0 && this.MovBool) {
       if (this.GetPerspectiva == "X") {
         this.PosicionWorldX += this.Directions[this.direccionActual];
         this.npcs[0].x += this.Directions[this.direccionActual];
@@ -53,6 +54,7 @@ export class Overworld {
     }
   }
   ActivacionMov() {
+    console.log("a");
     if (this.remanente <= 0 && this.ResetMov == true) {
       document.addEventListener("keydown", (ev) => {
         if (ev.key.startsWith("A")) {
@@ -60,13 +62,11 @@ export class Overworld {
           this.direccionActual = ev.key;
           this.SetPerspectiva = ev.key;
           this.remanente = 40;
-          
         }
       });
     } else {
       document.addEventListener("keyup", (ev) => {
         this.ResetMov = true;
-        
       });
     }
   }
@@ -108,15 +108,23 @@ export class Overworld {
   }
   drawNpc() {
     this.npcs.forEach((element) => {
+      let anima = "movDown";
       let Img = new Image();
       Img.src = element.spriteImg;
       let fx =
-        element.frameX * element.animationSprite["movDown"][element.frame][1];
+        element.frameX *
+        element.animationSprite[element.AnimationActual][element.frame][1];
       let fy =
-        element.frameY * element.animationSprite["movDown"][element.frame][0];
+        element.frameY *
+        element.animationSprite[element.AnimationActual][element.frame][0];
       element.wait++;
-      element.y += 0.5;
-      element.x += 0.5;
+      if (this.PosicionWorldX == -850) {
+        if (element.script()) {
+          this.MovBool = false;
+        } else {
+          this.MovBool = true;
+        }
+      }
 
       if (element.wait == 20) {
         element.frame++;
@@ -141,8 +149,11 @@ export class Overworld {
   Animate() {
     const a = () => {
       this.DrawOver();
-      this.MovDesc();
-      this.Sprites.acutalizarAnimacion(this.direccionActual);
+      if (this.MovBool) {
+        this.MovDesc();
+        this.Sprites.acutalizarAnimacion(this.direccionActual);
+      }
+
       this.drawNpc();
       requestAnimationFrame(a);
     };
@@ -152,6 +163,7 @@ export class Overworld {
   main() {
     console.log(this.Img);
     this.Animate();
+
     this.ActivacionMov();
   }
 }
