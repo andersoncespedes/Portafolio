@@ -1,5 +1,5 @@
 import { Sprite } from "../Sprites/index.js";
-
+import { Controls } from "./Controles.js";
 export class Overworld {
   constructor(Parametro, canvas) {
     this.param = Parametro;
@@ -37,21 +37,14 @@ export class Overworld {
     return this.Perspectiva;
   }
   MovDesc(posicionY, posicionX) {
-    
     if (this.ResetMov == true && this.remanente > 0) {
-      
-      if (this.GetPerspectiva == "X"){
+      if (this.GetPerspectiva == "X") {
         this.PosicionWorldX += this.Directions[this.direccionActual];
         this.npcs[0].x += this.Directions[this.direccionActual];
-      }
-        
-      else 
-      {
+      } else {
         this.PosicionWorldY += this.Directions[this.direccionActual];
         this.npcs[0].y += this.Directions[this.direccionActual];
-
-      
-      };
+      }
       this.remanente--;
     } else {
       this.movActivado = false;
@@ -62,14 +55,18 @@ export class Overworld {
   ActivacionMov() {
     if (this.remanente <= 0 && this.ResetMov == true) {
       document.addEventListener("keydown", (ev) => {
-        this.remanente = 25;
-        this.movActivado = true;
-        this.direccionActual = ev.key;
-        this.SetPerspectiva = ev.key;
+        if (ev.key.startsWith("A")) {
+          this.movActivado = true;
+          this.direccionActual = ev.key;
+          this.SetPerspectiva = ev.key;
+          this.remanente = 40;
+          
+        }
       });
     } else {
       document.addEventListener("keyup", (ev) => {
         this.ResetMov = true;
+        
       });
     }
   }
@@ -109,16 +106,21 @@ export class Overworld {
   get posicionY() {
     return this.PosicionWorldY;
   }
-  drawNpc(){
-    this.npcs.forEach(element => {
+  drawNpc() {
+    this.npcs.forEach((element) => {
       let Img = new Image();
       Img.src = element.spriteImg;
-      let fx = element.frameX * element.animationSprite["movDown"][element.frame][1];
-      let fy = element.frameY * element.animationSprite["movDown"][element.frame][0];
+      let fx =
+        element.frameX * element.animationSprite["movDown"][element.frame][1];
+      let fy =
+        element.frameY * element.animationSprite["movDown"][element.frame][0];
       element.wait++;
-      if(element.wait == 20){
+      element.y += 0.5;
+      element.x += 0.5;
+
+      if (element.wait == 20) {
         element.frame++;
-        if(element.frame > 1 ) element.frame = 0;
+        if (element.frame > 1) element.frame = 0;
         element.wait = 0;
       }
       Img.onload = () => {
