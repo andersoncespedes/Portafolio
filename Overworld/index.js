@@ -39,6 +39,29 @@ export class Overworld {
   }
   MovDesc(posicionY, posicionX) {
     if (this.ResetMov == true && this.remanente > 0 && this.MovBool) {
+      if (
+        !this.param.level[0].colisiones.ComprobarColision(
+          this.PosicionWorldX,
+          this.PosicionWorldY
+        )
+      ) {
+        if (this.GetPerspectiva == "X") {
+          if (this.Directions[this.direccionActual] > 0) {
+            this.remanente = 0;
+            this.Directions["ArrowLeft"] = 0;
+          }
+        }else if (this.GetPerspectiva == "Y") {
+        if (this.Directions[this.direccionActual] > 0) {
+          this.remanente = 0;
+          this.Directions["ArrowUp"] = 0;
+        }
+      } 
+      } else {
+        this.Directions["ArrowDown"] = -1;
+        this.Directions["ArrowUp"] = 1;
+        this.Directions["ArrowLeft"] = 1;
+        this.Directions["ArrowRight"] = -1;
+      }
       if (this.GetPerspectiva == "X") {
         this.PosicionWorldX += this.Directions[this.direccionActual];
         this.npcs[0].x += this.Directions[this.direccionActual];
@@ -97,7 +120,6 @@ export class Overworld {
     this.DrawWorld();
     this.drawNpc();
     this.Sprites.main(o);
-    
   }
   /**
    * @param {any} param
@@ -120,7 +142,12 @@ export class Overworld {
         element.frameY *
         element.animationSprite[element.AnimationActual][element.frame][0];
       element.wait++;
-      if (this.PosicionWorldX < -810 && this.PosicionWorldX > -890 && this.PosicionWorldY > -750 && this.PosicionWorldY < -710) {
+      if (
+        this.PosicionWorldX < -810 &&
+        this.PosicionWorldX > -890 &&
+        this.PosicionWorldY > -750 &&
+        this.PosicionWorldY < -710
+      ) {
         if (element.script(this.ctx)) {
           this.MovBool = false;
         } else {

@@ -1,5 +1,6 @@
 import { escena } from "./Escenes/index.js";
 import { Dialogos } from "./Sprites/Dialgos.js";
+import { Colision } from "./Sprites/Colisiones.js";
 export const overworldJson = {
   heroe: {
     frameX: 2,
@@ -37,6 +38,12 @@ export const overworldJson = {
       width: 2900,
       height: 2900,
       BackGround: "./Assets/Worlds/onettday.png",
+      colisiones:new Colision(
+        {
+          x:[-800],
+          y:[-850]
+        }
+      ),
       npc: [
         {
           XDialog:0,
@@ -78,6 +85,8 @@ export const overworldJson = {
               }
               else {
                 this.activaded = false;
+                this.AnimationActual = "movDown";
+
                 return false;
               }
               

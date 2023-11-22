@@ -14,7 +14,7 @@ export class Dialogos {
     datos.wait++;
     let arr = param.dialogo[0].split("");
     this.DibujarCudroDialog(ctx);
-    if (datos.wait == 10 && datos.pos < arr.length ) {
+    if (datos.wait == 5 && datos.pos < arr.length ) {
       
       datos.wait = 0;
      
