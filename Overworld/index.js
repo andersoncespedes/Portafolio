@@ -95,7 +95,9 @@ export class Overworld {
       o = true;
     }
     this.DrawWorld();
+    this.drawNpc();
     this.Sprites.main(o);
+    
   }
   /**
    * @param {any} param
@@ -118,8 +120,8 @@ export class Overworld {
         element.frameY *
         element.animationSprite[element.AnimationActual][element.frame][0];
       element.wait++;
-      if (this.PosicionWorldX == -850) {
-        if (element.script()) {
+      if (this.PosicionWorldX < -810 && this.PosicionWorldX > -890 && this.PosicionWorldY > -750 && this.PosicionWorldY < -710) {
+        if (element.script(this.ctx)) {
           this.MovBool = false;
         } else {
           this.MovBool = true;
@@ -153,8 +155,6 @@ export class Overworld {
         this.MovDesc();
         this.Sprites.acutalizarAnimacion(this.direccionActual);
       }
-
-      this.drawNpc();
       requestAnimationFrame(a);
     };
 

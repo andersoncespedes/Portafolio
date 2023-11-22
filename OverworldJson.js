@@ -1,3 +1,5 @@
+import { escena } from "./Escenes/index.js";
+import { Dialogos } from "./Sprites/Dialgos.js";
 export const overworldJson = {
   heroe: {
     frameX: 2,
@@ -37,6 +39,7 @@ export const overworldJson = {
       BackGround: "./Assets/Worlds/onettday.png",
       npc: [
         {
+          XDialog:0,
           x: 50,
           y: 0,
           xActual: 150,
@@ -63,14 +66,15 @@ export const overworldJson = {
             if (this.activaded) {
               if (this.x < this.xActual) {
                 this.AnimationActual = "movRight";
-                this.x++;
+                this.x++; 
+                Dialogos.EscribirDialogo(escena.Npc1, param);
                 return true;
               } 
               else if(this.x == this.xActual && this.y < this.yActual){
                 this.AnimationActual = "movDown";
                 this.y++;
+            
                 return true;
-
               }
               else {
                 this.activaded = false;
