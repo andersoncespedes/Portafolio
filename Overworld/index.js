@@ -37,31 +37,34 @@ export class Overworld {
   get GetPerspectiva() {
     return this.Perspectiva;
   }
-  MovDesc(posicionY, posicionX) {
-    if (this.ResetMov == true && this.remanente > 0 && this.MovBool) {
-      if (
-        !this.param.level[0].colisiones.ComprobarColision(
-          this.PosicionWorldX,
-          this.PosicionWorldY
-        )
-      ) {
-        if (this.GetPerspectiva == "X") {
-          if (this.Directions[this.direccionActual] > 0) {
-            this.remanente = 0;
-            this.Directions["ArrowLeft"] = 0;
-          }
-        }else if (this.GetPerspectiva == "Y") {
+  Colisiones(){
+    if (
+      !this.param.level[0].colisiones.ComprobarColision(
+        this.PosicionWorldX,
+        this.PosicionWorldY
+      )
+    ) {
+      if (this.GetPerspectiva == "X") {
         if (this.Directions[this.direccionActual] > 0) {
           this.remanente = 0;
-          this.Directions["ArrowUp"] = 0;
+          this.Directions["ArrowLeft"] = 0;
         }
-      } 
-      } else {
-        this.Directions["ArrowDown"] = -1;
-        this.Directions["ArrowUp"] = 1;
-        this.Directions["ArrowLeft"] = 1;
-        this.Directions["ArrowRight"] = -1;
+      }else if (this.GetPerspectiva == "Y") {
+      if (this.Directions[this.direccionActual] > 0) {
+        this.remanente = 0;
+        this.Directions["ArrowUp"] = 0;
       }
+    } 
+    } else {
+      this.Directions["ArrowDown"] = -1;
+      this.Directions["ArrowUp"] = 1;
+      this.Directions["ArrowLeft"] = 1;
+      this.Directions["ArrowRight"] = -1;
+    }
+  }
+  MovDesc(posicionY, posicionX) {
+    if (this.ResetMov == true && this.remanente > 0 && this.MovBool) {
+     this.Colisiones();
       if (this.GetPerspectiva == "X") {
         this.PosicionWorldX += this.Directions[this.direccionActual];
         this.npcs[0].x += this.Directions[this.direccionActual];

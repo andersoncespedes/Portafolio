@@ -40,8 +40,8 @@ export const overworldJson = {
       BackGround: "./Assets/Worlds/onettday.png",
       colisiones:new Colision(
         {
-          x:[-800],
-          y:[-850]
+          x:[-850],
+          y:[-910]
         }
       ),
       npc: [
