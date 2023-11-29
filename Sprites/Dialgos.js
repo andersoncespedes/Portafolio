@@ -1,28 +1,27 @@
 const datos = {
   wait: 0,
   text: "",
-  x: 110,
+  x: 200,
   pos: 0,
 };
 export class Dialogos {
   constructor() {}
   static DibujarCudroDialog(ctx) {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
-    ctx.fillRect(0, 100, 400, 100);
+    ctx.fillStyle = "rgba(0, 0, 0)";
+    ctx.fillRect(0, 120, 400, 100);
   }
   static EscribirDialogo(param, ctx) {
     datos.wait++;
     let arr = param.dialogo[0].split("");
     this.DibujarCudroDialog(ctx);
-    if (datos.wait == 5 && datos.pos < arr.length ) {
-      
+    if (datos.wait == 5 && datos.pos < arr.length) {
       datos.wait = 0;
-     
+
       datos.text += arr[datos.pos];
       datos.pos++;
     }
-     ctx.font = this.font;
-      ctx.fillStyle = "white";
-    ctx.fillText(datos.text, 10, 110);
+    ctx.font = 10;
+    ctx.fillStyle = "yellow";
+    ctx.fillText(datos.text, 10, 135);
   }
 }

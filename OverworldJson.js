@@ -35,18 +35,24 @@ export const overworldJson = {
     {
       x: -800,
       y: -800,
+      MapX:2,
+      MapY:1,
       width: 2900,
       height: 2900,
       BackGround: "./Assets/Worlds/onettday.png",
-      colisiones:new Colision(
-        {
-          x:[-850],
-          y:[-910]
-        }
-      ),
+      colisiones: new Colision([
+        [1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 1],
+        [1, 1, 0, 0, 0, 0, 1],
+        [1, 1, 1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1],
+        
+      ]),
       npc: [
         {
-          XDialog:0,
+          XDialog: 0,
           x: 50,
           y: 0,
           xActual: 150,
@@ -58,38 +64,35 @@ export const overworldJson = {
           width: 16,
           height: 24,
           activaded: true,
-          AnimationActual:"movRight",
+          AnimationActual: "movRight",
           animationSprite: {
             movDown: [
               [0, 0],
               [0, 1],
             ],
             movRight: [
-                [0, 5],
-                [0, 6],
-              ],
+              [0, 5],
+              [0, 6],
+            ],
           },
           script: function (param) {
             if (this.activaded) {
               if (this.x < this.xActual) {
                 this.AnimationActual = "movRight";
-                this.x++; 
+                this.x++;
                 Dialogos.EscribirDialogo(escena.Npc1, param);
                 return true;
-              } 
-              else if(this.x == this.xActual && this.y < this.yActual){
+              } else if (this.x == this.xActual && this.y < this.yActual) {
                 this.AnimationActual = "movDown";
                 this.y++;
-            
+
                 return true;
-              }
-              else {
+              } else {
                 this.activaded = false;
                 this.AnimationActual = "movDown";
 
                 return false;
               }
-              
             }
             return false;
           },
